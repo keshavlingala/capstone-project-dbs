@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class OrderBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer orderId;
+    String orderId;
     @ManyToOne
     @NotNull
     Client clientId;
