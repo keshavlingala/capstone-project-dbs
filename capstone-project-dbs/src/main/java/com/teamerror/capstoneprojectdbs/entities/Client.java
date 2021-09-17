@@ -18,5 +18,4 @@ public class Client {
     Custodian custodianId;
     @NotNull
     Double transactionLimit;
-
 }
