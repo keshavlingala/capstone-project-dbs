@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class WildCardErrorHandler {
+public class GlobalErrorHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Exception defaultHandler(Exception exception) {
+    public Exception globalErrorHandler(Exception exception) {
         System.out.println("Exception Occurred: " + exception);
         return exception;
     }
