@@ -6,4 +6,4 @@
 !.vscode/extensions.json
 .history/*git p
 capstone-project-dbs/h2db.lock.db
-capstone-project-dbs/h2db.mv.db
+
