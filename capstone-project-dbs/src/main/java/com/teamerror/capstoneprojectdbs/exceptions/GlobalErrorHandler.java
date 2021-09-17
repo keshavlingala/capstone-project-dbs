@@ -1,17 +1,34 @@
 package com.teamerror.capstoneprojectdbs.exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+
+import java.util.Date;
 
 @RestControllerAdvice
 public class GlobalErrorHandler {
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Exception globalErrorHandler(Exception exception) {
-        System.out.println("Exception Occurred: " + exception);
-        return exception;
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> resourceNotFoundHandler(ResourceNotFoundException exception, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exception.getStackTrace(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<?> validationExceptionHandler(ValidationException exception, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exception.getStackTrace(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> globalExceptionHandling(Exception exception, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), "There is some error :(", request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 }
