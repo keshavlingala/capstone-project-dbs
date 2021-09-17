@@ -2,13 +2,13 @@ package com.teamerror.capstoneprojectdbs.entities;
 
 import com.teamerror.capstoneprojectdbs.models.OrderDirection;
 import com.teamerror.capstoneprojectdbs.models.OrderStatus;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -36,5 +36,8 @@ public class OrderBook {
     OrderDirection orderDirection;
     @NotNull
     Boolean limitOrder;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    Date timeStamp;
 
 }
