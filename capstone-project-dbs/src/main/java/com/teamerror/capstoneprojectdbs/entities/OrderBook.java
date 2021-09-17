@@ -6,13 +6,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Data
 public class OrderBook {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer orderId;
+    UUID orderId;
     @ManyToOne
     @NotNull
     Client clientId;
