@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -13,9 +16,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class Stocks {
     @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    String stockId;
+    UUID stockId;
     @ManyToOne
     @NotNull
     Client clientId;

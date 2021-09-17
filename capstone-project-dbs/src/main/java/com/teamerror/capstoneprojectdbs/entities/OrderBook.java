@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,8 +17,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class OrderBook {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    String orderId;
+    UUID orderId;
     @ManyToOne
     @NotNull
     Client clientId;
