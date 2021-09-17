@@ -11,9 +11,9 @@ public class ClientIdservice {
 	@Autowired
 	ClientRepository clientRepository;
 	
-	public Client findByClientid()
+	public Client findByClientid(String clientId)
 	{
-		Optional<Client> clientobj = clientRepository.findById(client_id);
+		Optional<Client> clientobj = clientRepository.findById(clientId);
 		
 		if(clientobj.isPresent()) {
 			return clientobj.get();
