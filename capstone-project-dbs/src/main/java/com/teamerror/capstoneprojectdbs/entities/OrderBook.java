@@ -18,26 +18,32 @@ import java.util.UUID;
 public class OrderBook {
     @Id
     UUID orderId;
+
     @ManyToOne
     @NotNull
-    Client clientId;
+    Client client;
+
     @ManyToOne
     @NotNull
-    Instrument instrumentId;
+    Instrument instrument;
+
     @NotNull
     Double price;
+
     @NotNull
     Integer quantity;
+
     @Enumerated(EnumType.STRING)
     @NotNull
     OrderStatus orderStatus;
+
     @Enumerated(EnumType.STRING)
     @NotNull
     OrderDirection orderDirection;
+
     @NotNull
     Boolean limitOrder;
 
     @Temporal(TemporalType.TIMESTAMP)
     Date timeStamp;
-
 }

@@ -16,11 +16,14 @@ public class Client {
     @Id
     @NotNull
     String clientId;
+
     @NotNull
     String clientName;
+
     @ManyToOne
     @NotNull
-    Custodian custodianId;
+    Custodian custodian;
+
     @NotNull
     Double transactionLimit;
 }
