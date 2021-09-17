@@ -6,10 +6,9 @@ import lombok.Data;
 
 @Data
 public class OrderBookRequest {
-
     Client clientId;
-    Instrument instrumentId;
-     Double price;
+    String instrumentId;
+    Double price;
     Integer quantity;
     OrderDirection orderDirection;
     Boolean limitOrder;

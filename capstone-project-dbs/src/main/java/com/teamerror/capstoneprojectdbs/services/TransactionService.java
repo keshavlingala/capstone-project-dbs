@@ -2,30 +2,28 @@ package com.teamerror.capstoneprojectdbs.services;
 
 import com.teamerror.capstoneprojectdbs.entities.Client;
 import com.teamerror.capstoneprojectdbs.entities.OrderBook;
+import com.teamerror.capstoneprojectdbs.models.OrderBookRequest;
 import com.teamerror.capstoneprojectdbs.repositories.OrderBookRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class OrderMatchingService {
+public class TransactionService {
 
     @Autowired
     OrderBookRepository orderBookRepository;
 
     ClientService clientService;
 
-    public OrderBook buyFunction(String instrumentId, Integer quantity, Double price, String clientId)
-    {
+    public OrderBook buyFunction(String instrumentId, Integer quantity, Double price, String clientId) {
         List<OrderBook> matches = orderBookRepository.findById(String instrumentId);
         OrderBook o1;
 
-        for(OrderBook name : matches)
-        {
-            if(name.getOrderDirection().equals("sell"))
-            {
+        for (OrderBook name : matches) {
+            if (name.getOrderDirection().equals("sell")) {
                 if (name.getPrice().equals(price)) {
                     Integer buyQuantity;
                     Integer sellQuantity = name.getQuantity();
@@ -43,8 +41,7 @@ public class OrderMatchingService {
                         name.setPrice(0);
 
 
-                    }
-                    else {
+                    } else {
                         sellQuantity = sellQuantity - quantity;
                         name.setQuantity(sellQuantity);
                         Double updateprice = name.getPrice() - price;
@@ -62,4 +59,7 @@ public class OrderMatchingService {
 
     }
 
+    public ResponseEntity<Object> processTransaction(OrderBookRequest orderBookRequest) {
+        return null;
+    }
 }
