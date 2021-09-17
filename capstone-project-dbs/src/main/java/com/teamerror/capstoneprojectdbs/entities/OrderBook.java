@@ -3,12 +3,17 @@ package com.teamerror.capstoneprojectdbs.entities;
 import com.teamerror.capstoneprojectdbs.models.OrderDirection;
 import com.teamerror.capstoneprojectdbs.models.OrderStatus;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 public class OrderBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

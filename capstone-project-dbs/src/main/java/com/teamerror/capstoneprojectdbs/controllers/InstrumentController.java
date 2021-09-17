@@ -18,7 +18,7 @@ public class InstrumentController {
 
     @GetMapping(value="instrument/{id}")
     public ResponseEntity<Instrument> getClient(@PathVariable("id") String id) {
-        Instrument instrument = instrumentService.findbyInstrumentId(id);
+        Instrument instrument = instrumentService.findByInstrumentId(id);
         return new ResponseEntity<>(instrument, HttpStatus.OK);
     }
 

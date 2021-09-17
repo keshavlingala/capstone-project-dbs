@@ -1,12 +1,16 @@
 package com.teamerror.capstoneprojectdbs.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 public class Stocks {
     @Id
     @NotNull

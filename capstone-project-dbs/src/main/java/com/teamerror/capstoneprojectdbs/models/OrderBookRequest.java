@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class OrderBookRequest {
-    Client clientId;
+    String clientId;
     String instrumentId;
     Double price;
     Integer quantity;
