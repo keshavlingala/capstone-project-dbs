@@ -2,9 +2,7 @@ package com.teamerror.capstoneprojectdbs.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -12,6 +10,7 @@ import javax.validation.constraints.NotNull;
 public class Stocks {
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     String stockId;
     @ManyToOne
     @NotNull
