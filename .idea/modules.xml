@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/capstone-project-dbs.iml" filepath="$PROJECT_DIR$/.idea/capstone-project-dbs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Capstone.iml" filepath="$PROJECT_DIR$/.idea/Capstone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/capstone-project-dbs/capstone-project-dbs.iml" filepath="$PROJECT_DIR$/capstone-project-dbs/capstone-project-dbs.iml" />
     </modules>
   </component>
 </project>
