@@ -7,3 +7,5 @@
 .history/*git p
 capstone-project-dbs/h2db.lock.db
 capstone-project-dbs/h2db.mv.db
+/h2db.mv.db
+/h2db.trace.db
