@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.teamerror.capstoneprojectdbs.entities.Client;
 
 @Service
-public class ClientIdservice {
+public class ClientService {
 	
 	
 	
