@@ -30,6 +30,7 @@ public class TransactionService {
     InstrumentRepository instrumentRepository;
     StocksRepository stocksRepository;
     OrderBookRepository orderBookRepository;
+    StockService stockService;
 
     private ResponseEntity<Object> buyOrder(OrderBookRequest orderBookRequest) {
         return null;
@@ -46,47 +47,74 @@ public class TransactionService {
     }
 
 
-    private ResponseEntity<Object> sellOrder(OrderBookRequest orderBookRequest) {
+    private ResponseEntity<Object> sellOrder(OrderBookRequest orderReqOfSeller) {
 
-        Instrument instrument = instrumentRepository.findById(orderBookRequest.getInstrumentId())
+        Instrument instrument = instrumentRepository.findById(orderReqOfSeller.getInstrumentId())
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument Not Found"));
-        Client client = clientRepository.findById(orderBookRequest.getClientId())
+        Client seller = clientRepository.findById(orderReqOfSeller.getClientId())
                 .orElseThrow(() -> new ResourceNotFoundException("Client not Found"));
 
+
         List<OrderBook> buyOrdersWithSameInstrument = orderBookRepository.findAllByOrderDirection(OrderDirection.BUY).stream().filter(record -> {
-            return record.getInstrumentId().getInstrumentId().equals(instrument.getInstrumentId());
+            return record.getInstrument().getInstrumentId().equals(instrument.getInstrumentId());
         }).collect(Collectors.toList());
+
+        //if there are no buyers with same instrument save it in order book table.
         if (buyOrdersWithSameInstrument.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body(saveOrderInOrderBook(orderBookRequest, instrument, client));
+            return ResponseEntity.status(HttpStatus.OK).body(saveOrderInOrderBook(orderReqOfSeller, instrument, seller));
         }
+
+        //perfectBuyers = buyers with same instrument and same price expectations
         List<OrderBook> perfectBuyers = buyOrdersWithSameInstrument
                 .stream()
-                .filter(item -> item.getPrice().equals(orderBookRequest.getPrice())).collect(Collectors.toList());
+                .filter(item -> item.getPrice().equals(orderReqOfSeller.getPrice())).collect(Collectors.toList());
+
         if (!perfectBuyers.isEmpty()) {
             // One Buyer Case
-            OrderBook minBuyer = perfectBuyers.stream().min(Comparator.comparing(OrderBook::getTimeStamp)).get();
-            if (minBuyer.getQuantity().equals(orderBookRequest.getQuantity())) {
+            OrderBook minBuyerOrderReq = perfectBuyers.stream().min(Comparator.comparing(OrderBook::getTimeStamp)).get();
+            if (minBuyerOrderReq.getQuantity().equals(orderReqOfSeller.getQuantity())) {
+
                 // Perfect Buy Sell Trade
-                Client buyer = minBuyer.getClientId();
-                Stocks buyerStock = new Stocks();
-                buyerStock.setStockId(UUID.randomUUID());
-                buyerStock.setClientId(buyer);
-                buyerStock.setInstrumentId(minBuyer.getInstrumentId());
-                buyerStock.setQuantity(minBuyer.getQuantity());
+                Client buyer = minBuyerOrderReq.getClient();
+
                 // Buyer and Seller Transaction limit update
-                buyer.setTransactionLimit(buyer.getTransactionLimit() - minBuyer.getQuantity() * minBuyer.getPrice());
-                client.setTransactionLimit(client.getTransactionLimit() - minBuyer.getQuantity() * minBuyer.getPrice());
+                buyer.setTransactionLimit(buyer.getTransactionLimit() - minBuyerOrderReq.getQuantity() * minBuyerOrderReq.getPrice());
+                seller.setTransactionLimit(seller.getTransactionLimit() - minBuyerOrderReq.getQuantity() * minBuyerOrderReq.getPrice());
 
                 // TODO Unfinished
 
-                orderBookRepository.delete(minBuyer);
-                stocksRepository.save(buyerStock);
+                //update the status of the buyer order request to "completed"
+                minBuyerOrderReq.setOrderStatus(OrderStatus.COMPLETED);
+                orderBookRepository.save(minBuyerOrderReq);
 
+                // create/add the stocks to the buyer and remove the same stocks from the seller
+                stockService.saveStock(buyer, minBuyerOrderReq.getInstrument(), minBuyerOrderReq.getQuantity());
+                stockService.saveStock(seller, minBuyerOrderReq.getInstrument(), -1 * minBuyerOrderReq.getQuantity());
 
             } else {
-                // TODO Match multiple Buyers to single Seller
-                List<OrderBook> buyers = perfectBuyers.stream()
-                        .filter(order -> order.getQuantity() < orderBookRequest.getQuantity()).collect(Collectors.toList());
+                // Match multiple Buyers to single Seller
+
+                //sort perfectBuyers based on timestamp and select the buyers which have less quantity than the current seller
+                List<OrderBook> buyers = perfectBuyers.stream().sorted(Comparator.comparing(OrderBook::getTimeStamp))
+                        .filter(order -> order.getQuantity() < orderReqOfSeller.getQuantity()).collect(Collectors.toList());
+
+                //loop through buyers and deduct the instrument quantity from both buyers and sellers
+                int sellerQuantity = orderReqOfSeller.getQuantity();
+                for (OrderBook orderReqOfBuyer : buyers) {
+                    if (sellerQuantity < orderReqOfBuyer.getQuantity()) {
+                        continue;
+                    }
+
+                    Client buyer = orderReqOfBuyer.getClient();
+                    buyer.setTransactionLimit(buyer.getTransactionLimit() - orderReqOfBuyer.getQuantity() * orderReqOfBuyer.getPrice());
+                    seller.setTransactionLimit(seller.getTransactionLimit() - orderReqOfBuyer.getQuantity() * orderReqOfBuyer.getPrice());
+
+                    orderBookRepository.delete(orderReqOfBuyer);
+                    stockService.saveStock(buyer, orderReqOfBuyer.getInstrument(), orderReqOfBuyer.getQuantity());
+                    stockService.saveStock(seller, orderReqOfBuyer.getInstrument(), -1 * orderReqOfBuyer.getQuantity());
+
+                    sellerQuantity = sellerQuantity - orderReqOfBuyer.getQuantity();
+                }
 
             }
         }
@@ -95,17 +123,22 @@ public class TransactionService {
         return null;
     }
 
+    private void makeTransaction(Client buyer, Client seller, OrderBook orderReq) {
+
+    }
+
     private OrderBook saveOrderInOrderBook(OrderBookRequest orderBookRequest, Instrument instrument, Client client) {
         OrderBook orderBook = new OrderBook();
         orderBook.setOrderId(UUID.randomUUID());
         orderBook.setOrderStatus(OrderStatus.PROCESSING);
-        orderBook.setOrderDirection(OrderDirection.SELL);
+        orderBook.setOrderDirection(orderBookRequest.getOrderDirection());
         orderBook.setQuantity(orderBookRequest.getQuantity());
         orderBook.setLimitOrder(orderBookRequest.getLimitOrder());
-        orderBook.setInstrumentId(instrument);
-        orderBook.setClientId(client);
+        orderBook.setInstrument(instrument);
+        orderBook.setClient(client);
         orderBook.setTimeStamp(new Date());
         return orderBookRepository.save(orderBook);
     }
+
 
 }

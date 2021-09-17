@@ -14,6 +14,4 @@ public class ClientService {
     public Client findByClientId(String clientId) {
         return clientRepository.findById(clientId).get();
     }
-    //saveStock(client,instrument,quantity)
-    //getStockQuantity(client,instrument)
 }

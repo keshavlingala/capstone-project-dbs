@@ -17,12 +17,15 @@ import java.util.UUID;
 public class Stocks {
     @Id
     UUID stockId;
+
     @ManyToOne
     @NotNull
-    Client clientId;
+    Client client;
+
     @ManyToOne
     @NotNull
-    Instrument instrumentId;
+    Instrument instrument;
+
     @NotNull
     Integer quantity;
 }

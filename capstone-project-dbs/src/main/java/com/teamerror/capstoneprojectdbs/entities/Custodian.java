@@ -17,7 +17,7 @@ public class Custodian {
     @Id
     @NotNull
     String custodianId;
+
     @NotNull
     String custodianName;
-
 }

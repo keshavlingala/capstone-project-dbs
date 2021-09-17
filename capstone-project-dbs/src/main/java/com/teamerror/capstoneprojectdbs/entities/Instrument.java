@@ -18,11 +18,15 @@ import java.util.Date;
 public class Instrument {
     @Id
     String instrumentId;
+
     @NotNull
     String instrumentName;
+
     Double faceValue;
+
     @Temporal(TemporalType.TIMESTAMP)
     Date expiryDate;
+
     @NotNull
     Integer minQuantity;
 }
