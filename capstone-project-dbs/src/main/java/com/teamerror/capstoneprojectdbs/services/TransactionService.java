@@ -4,6 +4,7 @@ import com.teamerror.capstoneprojectdbs.entities.Client;
 import com.teamerror.capstoneprojectdbs.entities.Instrument;
 import com.teamerror.capstoneprojectdbs.entities.OrderBook;
 import com.teamerror.capstoneprojectdbs.entities.Stocks;
+import com.teamerror.capstoneprojectdbs.exceptions.ResourceNotFoundException;
 import com.teamerror.capstoneprojectdbs.models.CustomResponse;
 import com.teamerror.capstoneprojectdbs.models.OrderBookRequest;
 import com.teamerror.capstoneprojectdbs.models.OrderDirection;
@@ -46,15 +47,11 @@ public class TransactionService {
 
 
     private ResponseEntity<Object> sellOrder(OrderBookRequest orderBookRequest) {
-        if (!instrumentRepository.findById(orderBookRequest.getInstrumentId()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomResponse("Instrument Not Found", "Instrument Not Found"));
-        }
-        if (!clientRepository.findById(orderBookRequest.getClientId()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CustomResponse("Client Not Found", "Client Not Found"));
-        }
 
-        Instrument instrument = instrumentRepository.findById(orderBookRequest.getInstrumentId()).get();
-        Client client = clientRepository.findById(orderBookRequest.getClientId()).get();
+        Instrument instrument = instrumentRepository.findById(orderBookRequest.getInstrumentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Instrument Not Found"));
+        Client client = clientRepository.findById(orderBookRequest.getClientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not Found"));
 
         List<OrderBook> buyOrdersWithSameInstrument = orderBookRepository.findAllByOrderDirection(OrderDirection.BUY).stream().filter(record -> {
             return record.getInstrumentId().getInstrumentId().equals(instrument.getInstrumentId());
