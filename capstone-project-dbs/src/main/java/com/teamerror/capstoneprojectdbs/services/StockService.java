@@ -25,7 +25,7 @@ public class StockService {
      * @see Stocks
      */
     public Stocks saveStock(Client client, Instrument instrument, Integer quantity) {
-        Stocks getOrCreate = stocksRepository.findByClientIdAndInstrument(client, instrument).orElseGet(() -> {
+        Stocks getOrCreate = stocksRepository.findByClientAndInstrument(client, instrument).orElseGet(() -> {
             Stocks newStock = new Stocks();
             newStock.setStockId(UUID.randomUUID());
             newStock.setClient(client);
@@ -47,7 +47,7 @@ public class StockService {
      * @see Stocks
      */
     Stocks getStockQuantity(Client client, Instrument instrument) {
-        return stocksRepository.findByClientIdAndInstrument(client, instrument).orElseGet(() -> {
+        return stocksRepository.findByClientAndInstrument(client, instrument).orElseGet(() -> {
             Stocks newStock = new Stocks();
             newStock.setStockId(UUID.randomUUID());
             newStock.setClient(client);
