@@ -21,10 +21,12 @@ public class OrderBook {
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "client_id")
     Client client;
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "instrument_id")
     Instrument instrument;
 
     @NotNull

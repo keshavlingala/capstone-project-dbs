@@ -1,11 +1,13 @@
 package com.teamerror.capstoneprojectdbs.entities;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,6 +24,7 @@ public class Client {
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "custodian_id")
     Custodian custodian;
 
     @NotNull

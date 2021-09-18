@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -20,10 +21,12 @@ public class Stocks {
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "client_id")
     Client client;
 
     @ManyToOne
     @NotNull
+    @JoinColumn(name = "instrument_id")
     Instrument instrument;
 
     @NotNull
