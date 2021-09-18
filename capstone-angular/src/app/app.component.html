@@ -3,4 +3,6 @@
   <span class="flex-fill"></span>
   <button color="warn" mat-stroked-button (click)="auth.logout()" *ngIf="auth.isLoggedIn">Logout</button>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<div class="container mt-3">
+  <router-outlet></router-outlet>
+</div>

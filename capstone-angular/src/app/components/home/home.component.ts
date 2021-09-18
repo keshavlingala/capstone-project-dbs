@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  data: any;
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) {
+  }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.http.get('http://localhost:8000/client/DBS001').subscribe(d => this.data = d);
   }
 
 }
