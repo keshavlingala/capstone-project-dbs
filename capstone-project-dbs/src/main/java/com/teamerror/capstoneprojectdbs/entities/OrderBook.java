@@ -2,9 +2,7 @@ package com.teamerror.capstoneprojectdbs.entities;
 
 import com.teamerror.capstoneprojectdbs.models.OrderDirection;
 import com.teamerror.capstoneprojectdbs.models.OrderStatus;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +10,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
