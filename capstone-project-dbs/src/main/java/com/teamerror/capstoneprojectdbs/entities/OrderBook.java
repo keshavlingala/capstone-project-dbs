@@ -17,6 +17,7 @@ import java.util.UUID;
 @ToString
 public class OrderBook {
     @Id
+    @Column(columnDefinition = "VARCHAR(255)")
     UUID orderId;
 
     @ManyToOne
