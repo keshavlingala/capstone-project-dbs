@@ -32,6 +32,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatdashboardComponent } from './components/matdashboard/matdashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { TableComponent } from './components/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,8 @@ import { MatMenuModule } from '@angular/material/menu';
     ChartsComponent,
     ErrorComponent,
     NavigationComponent,
-    MatdashboardComponent
+    MatdashboardComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatListModule,
     MatGridListModule,
     MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
