@@ -16,7 +16,12 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {NumbersOnlyDirective} from "./misc/numbers-only.directive";
-import { ChartsComponent } from './charts/charts.component';
+
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {ChartsComponent} from "./components/charts/charts.component";
 
 @NgModule({
   declarations: [
@@ -38,7 +43,11 @@ import { ChartsComponent } from './charts/charts.component';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
