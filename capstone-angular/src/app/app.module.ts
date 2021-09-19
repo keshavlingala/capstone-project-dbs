@@ -16,6 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {NumbersOnlyDirective} from "./misc/numbers-only.directive";
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {NumbersOnlyDirective} from "./misc/numbers-only.directive";
     LoginComponent,
     HomeComponent,
     DashboardComponent,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
