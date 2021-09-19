@@ -36,6 +36,9 @@ public class OrderBook {
     @NotNull
     Integer quantity;
 
+    @NotNull
+    Integer initialQuantity;
+
     @Enumerated(EnumType.STRING)
     @NotNull
     OrderStatus orderStatus;
