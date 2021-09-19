@@ -19,12 +19,29 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  // ngOnInit(): void {
+  //   if (this.auth.isLoggedIn) {
+  //     this.router.navigate(['/home'])
+  //   }
+  // }
   ngOnInit(): void {
     if (this.auth.isLoggedIn) {
       this.router.navigate(['/home'])
     }
   }
-
+  // login() {
+  //   const {username, password} = this.loginForm.value;
+  //   this.auth.login(username, password).subscribe(async value => {
+  //     await this.router.navigate(['home'])
+  //   }, error => {
+  //     console.error(error);
+  //     this.loginForm.reset();
+  //     this.loginForm.setErrors({
+  //       message: error.error.message,
+  //       description: error.error.description
+  //     })
+  //   })
+  // }
   login() {
     const {username, password} = this.loginForm.value;
     this.auth.login(username, password).subscribe(async value => {
