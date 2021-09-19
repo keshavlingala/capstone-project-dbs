@@ -25,6 +25,13 @@ import {ChartsComponent} from "./components/charts/charts.component";
 import {ErrorComponent} from './components/error/error.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatIconModule} from "@angular/material/icon";
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatdashboardComponent } from './components/matdashboard/matdashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -34,7 +41,9 @@ import {MatIconModule} from "@angular/material/icon";
     DashboardComponent,
     NumbersOnlyDirective,
     ChartsComponent,
-    ErrorComponent
+    ErrorComponent,
+    NavigationComponent,
+    MatdashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +63,11 @@ import {MatIconModule} from "@angular/material/icon";
     MatTooltipModule,
     MatDialogModule,
     MatIconModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule,
+    MatGridListModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
