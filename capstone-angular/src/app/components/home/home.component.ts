@@ -17,5 +17,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.http.get('http://localhost:8000/client/DBS001').subscribe(d => this.data = d);
   }
-
+  
 }
+
+

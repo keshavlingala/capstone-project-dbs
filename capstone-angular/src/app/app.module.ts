@@ -16,6 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {NumbersOnlyDirective} from "./misc/numbers-only.directive";
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import {NumbersOnlyDirective} from "./misc/numbers-only.directive";
     MatButtonModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
