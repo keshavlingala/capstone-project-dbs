@@ -243,8 +243,9 @@ public class TransactionService {
         clientRepository.save(seller);
 
         // we need to adjust the stock quantity in the order request of seller and buyer
-        buyerOrderBookInstance.setQuantity(buyerOrderBookInstance.getQuantity() - orderReq.getQuantity());
-        sellerOrderBookInstance.setQuantity(sellerOrderBookInstance.getQuantity() - orderReq.getQuantity());
+        int quantityToBeSubtracted = orderReq.getQuantity();
+        buyerOrderBookInstance.setQuantity(buyerOrderBookInstance.getQuantity() - quantityToBeSubtracted);
+        sellerOrderBookInstance.setQuantity(sellerOrderBookInstance.getQuantity() - quantityToBeSubtracted);
         if(buyerOrderBookInstance.getQuantity().equals(0)){
             buyerOrderBookInstance.setOrderStatus(OrderStatus.COMPLETED);
         }
