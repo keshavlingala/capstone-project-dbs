@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>
+  <mat-icon>error</mat-icon>
+  Error Occurred
+</h2>
+<mat-dialog-content>
+  Error Status: {{data.status}} <br>
+  Message : {{data.error.message}} <br>
+  Path : {{data.error.details}} <br>
+  Timestamp: {{data.error.timestamp | date:'long'}} <br>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="warn" mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

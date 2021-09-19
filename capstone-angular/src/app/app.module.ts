@@ -22,6 +22,9 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {ChartsComponent} from "./components/charts/charts.component";
+import {ErrorComponent} from './components/error/error.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import {ChartsComponent} from "./components/charts/charts.component";
     HomeComponent,
     DashboardComponent,
     NumbersOnlyDirective,
-    ChartsComponent
+    ChartsComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,9 @@ import {ChartsComponent} from "./components/charts/charts.component";
     MatSelectModule,
     MatOptionModule,
     MatRadioModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

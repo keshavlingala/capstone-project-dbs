@@ -1,0 +1,18 @@
+::ng-deep .mat-form-field {
+  margin-right: 2em;
+}
+.full-form{
+  div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.radio-btn{
+  mat-radio-button{
+    margin: 1em 1em 1em 0;
+  }
+}

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {LOGIN_URL, REGISTER_URL} from "../models/constant";
+// import {LOGIN_URL, REGISTER_URL} from "../models/constant";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
 
@@ -27,18 +27,18 @@ export class AuthService {
       this.token = 'random';
       localStorage.setItem('token', 'random')
     }));
-    return this.http.post<{ jwt: string }>(LOGIN_URL, {username, password}).pipe(
-      map(res => {
-        this.token = res.jwt
-        localStorage.setItem('token', res.jwt);
-        return res;
-      })
-    )
+    // return this.http.post<{ jwt: string }>(LOGIN_URL, {username, password}).pipe(
+    //   map(res => {
+    //     this.token = res.jwt
+    //     localStorage.setItem('token', res.jwt);
+    //     return res;
+    //   })
+    // )
   }
 
   register(username: string, password: string) {
     return of(true);
-    return this.http.post<any>(REGISTER_URL, {username, password});
+    // return this.http.post<any>(REGISTER_URL, {username, password});
   }
 
   logout() {

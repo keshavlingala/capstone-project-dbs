@@ -1,3 +1,76 @@
-<pre>
-  {{data | json}}
-</pre>
+<div class="d-flex justify-content-center m-4">
+  <div class="mat-elevation-z3 p-5">
+    <form #form="ngForm" (ngSubmit)="makeTransaction()" class="d-flex flex-column full-form"
+          [formGroup]="orderForm">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Client ID</mat-label>
+          <input (blur)="updateClient($event)" matInput type="text" formControlName="clientId">
+          <mat-error *ngIf="orderForm.get('clientId')?.errors?.required">This Field is Required!</mat-error>
+          <mat-error *ngIf="!orderForm.get('clientId')?.errors?.required&&orderForm.get('clientId')?.errors?.invalid">
+            Please enter a Valid Client ID
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field matTooltipPosition="right" [matTooltip]="orderForm.get('clientName')?.value"
+                        appearance="outline">
+          <mat-label>Client Name</mat-label>
+          <input matInput type="text" formControlName="clientName">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Instrument ID</mat-label>
+          <input (blur)="updateInstrument()" matInput type="text" formControlName="instrumentId">
+          <mat-error *ngIf="orderForm.get('instrumentId')?.errors?.required">This Field is Required!</mat-error>
+          <mat-error
+            *ngIf="!orderForm.get('instrumentId')?.errors?.required&&orderForm.get('instrumentId')?.errors?.invalid">
+            Please Enter a Valid Instrument ID
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field matTooltipPosition="right" [matTooltip]="orderForm.get('instrumentName')?.value"
+                        appearance="outline">
+          <mat-label>Instrument Name</mat-label>
+          <input matInput type="text" formControlName="instrumentName">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Face Value</mat-label>
+          <input matInput type="text" formControlName="faceValue">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Expire Date</mat-label>
+          <input matInput type="text" formControlName="expireDate">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput type="text" formControlName="price">
+          <mat-error *ngIf="orderForm.get('price')?.errors?.required">This Field is Required!</mat-error>
+          <mat-error *ngIf="!orderForm.get('price')?.errors?.required&&orderForm.get('price')?.errors?.validPrice">
+            {{orderForm.get('price')?.errors?.validPrice?.error}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="text" formControlName="quantity">
+          <mat-error *ngIf="orderForm.get('quantity')?.errors?.required">This Field is Required!</mat-error>
+          <mat-error
+            *ngIf="!orderForm.get('quantity')?.errors?.required&&orderForm.get('quantity')?.errors?.minQuantity">
+            {{orderForm.get('quantity')?.errors?.minQuantity?.error}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-radio-group class="radio-btn" formControlName="orderDirection" aria-label="Select an option">
+          <mat-radio-button value="BUY">BUY</mat-radio-button>
+          <mat-radio-button value="SELL">SELL</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <button type="submit" [disabled]="orderForm.invalid" color="primary"
+              mat-raised-button>Make Transaction
+      </button>
+    </form>
+  </div>
+</div>
