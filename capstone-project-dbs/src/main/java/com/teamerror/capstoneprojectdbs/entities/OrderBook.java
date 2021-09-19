@@ -18,7 +18,7 @@ import java.util.UUID;
 public class OrderBook {
     @Id
     @Column(columnDefinition = "VARCHAR(255)")
-    UUID orderId;
+    String orderId;
 
     @ManyToOne
     @NotNull

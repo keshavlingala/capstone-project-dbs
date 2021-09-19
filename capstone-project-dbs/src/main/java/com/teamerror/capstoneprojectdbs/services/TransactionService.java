@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ public class TransactionService {
     StocksRepository stocksRepository;
     OrderBookRepository orderBookRepository;
     StockService stockService;
+    ClientService clientService;
 
     public OrderBook processTransaction(OrderBookRequest orderBookRequest) {
         if (orderBookRequest.getOrderDirection().equals(OrderDirection.BUY)) {
@@ -48,7 +50,8 @@ public class TransactionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Client not Found"));
 
         //first create the OrderBook instance of the seller request(to be saved to the database later)
-        OrderBook buyerOrderBookInstance = new OrderBook(UUID.randomUUID(),
+        OrderBook buyerOrderBookInstance = new OrderBook(
+                UUID.randomUUID().toString(),
                 buyer,
                 buyerInstrument,
                 orderReqOfBuyer.getPrice(),
@@ -58,6 +61,8 @@ public class TransactionService {
                 false,
                 new Date()
         );
+
+        System.out.println("uuid:"+buyerOrderBookInstance.getOrderId());
 
         List<OrderBook> sellOrdersWithSameInstrument = orderBookRepository
                 .findAllByOrderDirectionAndOrderStatus(OrderDirection.SELL, OrderStatus.PROCESSING).stream()
@@ -130,8 +135,16 @@ public class TransactionService {
         Client seller = clientRepository.findById(orderReqOfSeller.getClientId())
                 .orElseThrow(() -> new ResourceNotFoundException("Client not Found"));
 
+
+        //check whether the seller has the specified stock and if he/she has the atleast the specified number of stocks
+        Stocks stockAboutToSell = stocksRepository.findByClientAndInstrument(seller,sellerInstrument).orElseThrow(() ->
+                new ValidationException("seems like the seller doesn't have the specified stocks"));
+        if(stockAboutToSell.getQuantity() < orderReqOfSeller.getQuantity()){
+            throw new ValidationException("the seller doesn't have the specified number of stocks");
+        }
+
         //first create the OrderBook instance of the seller request(to be saved to the database later)
-        OrderBook sellerOrderBookInstance = new OrderBook(UUID.randomUUID(),
+        OrderBook sellerOrderBookInstance = new OrderBook(UUID.randomUUID().toString(),
                 seller,
                 sellerInstrument,
                 orderReqOfSeller.getPrice(),
@@ -210,6 +223,7 @@ public class TransactionService {
         Exchanges stock among the buyer and the seller based on the orderReq.
         Transfers the stocks present in orderReq from the seller to buyer.
     */
+    @Transactional
     private void exchangeStocks(Client buyer, Client seller, OrderBook buyerOrderBookInstance,OrderBook sellerOrderBookInstance,boolean considerBuyersOrderReq) {
         OrderBook orderReq;
         if(considerBuyersOrderReq){ //consider the quantity and price present in buyerOrderBookInstance while exchanging the stock
@@ -218,6 +232,9 @@ public class TransactionService {
         else{
             orderReq = sellerOrderBookInstance;
         }
+
+        stockService.saveStock(buyer, orderReq.getInstrument(), orderReq.getQuantity());
+        stockService.saveStock(seller, orderReq.getInstrument(), -1 * orderReq.getQuantity());
 
         //adjust the transaction limit
         buyer.setTransactionLimit(buyer.getTransactionLimit() - orderReq.getQuantity() * orderReq.getPrice());
@@ -237,8 +254,6 @@ public class TransactionService {
         orderBookRepository.save(buyerOrderBookInstance);
         orderBookRepository.save(sellerOrderBookInstance);
 
-        stockService.saveStock(buyer, orderReq.getInstrument(), orderReq.getQuantity());
-        stockService.saveStock(seller, orderReq.getInstrument(), -1 * orderReq.getQuantity());
     }
 
 

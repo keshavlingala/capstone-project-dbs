@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Stocks {
     @Id
     @Column(columnDefinition = "VARCHAR(255)")
-    UUID stockId;
+    String stockId;
 
     @ManyToOne
     @NotNull
