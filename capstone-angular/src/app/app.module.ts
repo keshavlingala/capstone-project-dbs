@@ -18,13 +18,20 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {NumbersOnlyDirective} from "./misc/numbers-only.directive";
 import { DataService } from './services/data.service';
 
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {ChartsComponent} from "./components/charts/charts.component";
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     DashboardComponent,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,11 @@ import { DataService } from './services/data.service';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
