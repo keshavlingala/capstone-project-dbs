@@ -70,7 +70,7 @@
     <div class="d-flex justify-content-center">
       <mat-form-field class="m-4">
         <mat-label>Select Custodian</mat-label>
-        <mat-select (ngModelChange)="fetchClients()" name="custodian" [(ngModel)]="selectedCustodian">
+        <mat-select [(value)]="selectedCustodian" (valueChange)="fetchClients()" name="custodian">
           <mat-option [value]="cus.custodianId" matTooltipPosition="right" [matTooltip]="cus.custodianName"
                       *ngFor="let cus of custodians | async">
             {{cus.custodianId}}
@@ -79,7 +79,7 @@
       </mat-form-field>
     </div>
     <div class="d-flex flex-column">
-      <div class="stat-item stat-header">
+      <div *ngIf="selectedCustodian" class="stat-item stat-header">
         <span>Client ID</span>
         <span>Client Name</span>
         <span>Transaction Limit</span>

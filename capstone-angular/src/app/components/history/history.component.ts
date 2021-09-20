@@ -50,7 +50,9 @@ export class HistoryComponent implements OnInit {
   }
 
   fetchClients() {
-    // this.clients = this.data.getClientsByCustodian(this.selectedCustodian)
-    this.clients = this.data.getAllClients();
+    if (!this.selectedCustodian) return;
+    console.log(this.selectedCustodian)
+    this.clients = this.data.getClientsByCustodian(this.selectedCustodian)
+    // this.clients = this.data.getAllClients();
   }
 }
