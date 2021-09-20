@@ -26,6 +26,12 @@ public class ClientsController {
         return new ResponseEntity<>(clientService.findAll(),HttpStatus.OK);
     }
 
+    @GetMapping(value = "clientsByCustodian/{custodianId}")
+    public ResponseEntity<List<Client>> getAllClientsByCustodian(@PathVariable("custodianId") String custodianId){
+        List<Client> clients =  clientService.findAllByCustodian(custodianId);
+        return new ResponseEntity<>(clients,HttpStatus.OK);
+    }
+
     @GetMapping(value = "/test")
     public ResponseEntity<Object> testMethod() {
         throw new ResourceNotFoundException("something went wrong");
