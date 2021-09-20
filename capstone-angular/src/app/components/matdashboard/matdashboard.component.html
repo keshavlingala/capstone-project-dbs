@@ -16,7 +16,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-<!--          <h1 mat-subheader></h1>-->
+          <!--          <h1 mat-subheader></h1>-->
           <div class="d-flex flex-column">
             <div class="stat-item stat-header">
               <span>Custodian ID</span>
@@ -26,9 +26,9 @@
             </div>
             <div class="stat-item" *ngFor="let stat of custodianStats | async">
               <span>{{stat.custodianId}}</span>
-              <span>{{stat.totalBuy}}</span>
-              <span>{{stat.totalBuy}}</span>
-              <span>{{stat.totalSell - stat.totalBuy}}</span>
+              <span>{{stat.totalBuy | currency:'INR'}}</span>
+              <span>{{stat.totalSell  | currency:'INR'}}</span>
+              <span>{{stat.totalSell - stat.totalBuy  | currency:'INR'}}</span>
             </div>
           </div>
         </mat-card-content>
@@ -60,9 +60,9 @@
             <div class="stat-item" *ngFor="let ins of instruments | async">
               <span>{{ins.instrumentId}}</span>
               <span>{{ins.instrumentName}}</span>
-              <span>{{ins.faceValue}}</span>
+              <span *ngIf="ins.faceValue else none">{{ins.faceValue  | currency:'INR'}}</span>
               <span>{{ins.minQuantity}}</span>
-              <span>{{ins.expiryDate | date}}</span>
+              <span *ngIf="ins.expiryDate else none">{{ins.expiryDate | date}}</span>
             </div>
           </div>
         </mat-card-content>
@@ -93,7 +93,7 @@
             <div class="stat-item" *ngFor="let stat of clientStats | async">
               <span>{{stat.clientId}}</span>
               <span>{{stat.totalBuy}}</span>
-              <span>{{stat.totalBuy}}</span>
+              <span>{{stat.totalSell}}</span>
               <span>{{stat.totalSell - stat.totalBuy}}</span>
             </div>
           </div>
@@ -125,9 +125,9 @@
             </div>
             <div class="stat-item" *ngFor="let cli of clients  | async">
               <span>{{cli.clientId}}</span>
-              <span>{{cli.clientName}}</span>
+              <span [matTooltip]="cli.clientName">{{cli.clientName | truncate:[10]}}</span>
               <span>{{cli.custodian.custodianId}}</span>
-              <span>{{cli.custodian.custodianName}}</span>
+              <span [matTooltip]="cli.custodian.custodianName">{{cli.custodian.custodianName | truncate:[10]}}</span>
               <span>{{cli.transactionLimit}}</span>
             </div>
           </div>
@@ -136,3 +136,6 @@
     </mat-grid-tile>
   </mat-grid-list>
 </div>
+<ng-template #none>
+  NULL
+</ng-template>
