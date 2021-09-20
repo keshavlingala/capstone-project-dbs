@@ -74,7 +74,7 @@
     </form>
   </div>
   <div class="mat-elevation-z3 m-3 col-sm-6">
-    <mat-list>
+    <!-- <mat-list>
       <mat-list-item *ngFor="let item of history | async">
         <span>{{item.client.clientName}}</span>
         <span>{{item.instrument.instrumentName}}</span>
@@ -82,6 +82,27 @@
         <span>{{item.orderDirection}}</span>
         <span>{{item.initialQuantity}}</span>
       </mat-list-item>
-    </mat-list>
+    </mat-list> -->
+    <mat-card>
+    <mat-card-content class="history-card">
+      <div mat-subheader>Client History</div>
+<div class="stat-item stat-header">
+  <span>Client</span>
+  <span>Instrument</span>
+  <span>Price</span>
+  <span>orderDirection</span>
+  <span>initialQuantity</span>
+</div>
+<div class="d-flex flex-column">
+  <div class="stat-item" *ngFor="let item of history | async">
+    <span>{{item.client.clientName}}</span>
+        <span>{{item.instrument.instrumentName}}</span>
+        <span>{{item.price}}</span>
+        <span>{{item.orderDirection}}</span>
+        <span>{{item.initialQuantity}}</span>
   </div>
 </div>
+</mat-card-content>
+</mat-card>
+  </div>
+

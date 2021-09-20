@@ -5,6 +5,7 @@ import {LoginComponent} from "./components/login/login.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { MatdashboardComponent } from './components/matdashboard/matdashboard.component';
+import { TableComponent } from './components/table/table.component';
 import {HistoryComponent} from "./components/history/history.component";
 
 const routes: Routes = [
@@ -14,6 +15,8 @@ const routes: Routes = [
   {path: 'navigation', component: NavigationComponent},
   {path: 'history', component: HistoryComponent},
   {path: 'matdashboard', component: MatdashboardComponent},
+  {path: 'table', component: TableComponent},
+
   {path: '**', redirectTo: 'login'}
 ];
 
