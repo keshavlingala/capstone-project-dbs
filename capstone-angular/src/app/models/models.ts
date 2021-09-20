@@ -24,6 +24,7 @@ export interface OrderBook {
   "instrument": Instrument,
   "price": number
   "quantity": number;
+  initialQuantity: number;
   "orderStatus": string;
   "orderDirection": string;
   "limitOrder": boolean;
