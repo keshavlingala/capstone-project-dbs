@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface StocksRepository extends JpaRepository<Stocks, String> {
     List<Stocks> findAllByClient(Client id);
     Optional<Stocks> findByClientAndInstrument(Client client, Instrument instrument);
+    List<Stocks> findAll();
 }
