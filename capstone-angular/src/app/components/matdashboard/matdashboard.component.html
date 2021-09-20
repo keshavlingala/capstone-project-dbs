@@ -1,11 +1,11 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{card.title}}
+            Custodian Wise Net Cash Position
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -16,7 +16,121 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+<!--          <h1 mat-subheader></h1>-->
+          <div class="d-flex flex-column">
+            <div class="stat-item stat-header">
+              <span>Custodian ID</span>
+              <span>Total Buy Value</span>
+              <span>Total Sell Value</span>
+              <span>Net Value</span>
+            </div>
+            <div class="stat-item" *ngFor="let stat of custodianStats | async">
+              <span>{{stat.custodianId}}</span>
+              <span>{{stat.totalBuy}}</span>
+              <span>{{stat.totalBuy}}</span>
+              <span>{{stat.totalSell - stat.totalBuy}}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Instruments
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div class="d-flex flex-column">
+            <div class="stat-item stat-header">
+              <span>Instrument ID</span>
+              <span>Instrument Name</span>
+              <span>Face Value</span>
+              <span>Min Quantity</span>
+              <span>Expiry Date</span>
+            </div>
+            <div class="stat-item" *ngFor="let ins of instruments | async">
+              <span>{{ins.instrumentId}}</span>
+              <span>{{ins.instrumentName}}</span>
+              <span>{{ins.faceValue}}</span>
+              <span>{{ins.minQuantity}}</span>
+              <span>{{ins.expiryDate | date}}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Client Wise Net Cash Position
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div class="d-flex flex-column">
+            <div class="stat-item stat-header">
+              <span>Client ID</span>
+              <span>Total Buy Value</span>
+              <span>Total Sell Value</span>
+              <span>Net Value</span>
+            </div>
+            <div class="stat-item" *ngFor="let stat of clientStats | async">
+              <span>{{stat.clientId}}</span>
+              <span>{{stat.totalBuy}}</span>
+              <span>{{stat.totalBuy}}</span>
+              <span>{{stat.totalSell - stat.totalBuy}}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Clients
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div class="d-flex flex-column">
+            <div class="stat-item stat-header">
+              <span>Client ID</span>
+              <span>Client Name</span>
+              <span>Custodian ID</span>
+              <span>Custodian Name</span>
+              <span>Transaction Limit</span>
+            </div>
+            <div class="stat-item" *ngFor="let cli of clients  | async">
+              <span>{{cli.clientId}}</span>
+              <span>{{cli.clientName}}</span>
+              <span>{{cli.custodian.custodianId}}</span>
+              <span>{{cli.custodian.custodianName}}</span>
+              <span>{{cli.transactionLimit}}</span>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

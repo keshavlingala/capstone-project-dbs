@@ -1,7 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {GET_ALL_ORDER_BOOK, GET_CLIENT_DATA, GET_INSTRUMENT_DATA, POST_TRANSACTION_DATA} from "../models/constant";
-import {Client, Instrument, OrderBook} from "../models/models";
+import {
+  CLIENT_WISE_DATA,
+  CUSTODIAN_WISE_DATA,
+  GET_ALL_CLIENTS,
+  GET_ALL_CUSTODIANS,
+  GET_ALL_INSTRUMENT,
+  GET_ALL_ORDER_BOOK,
+  GET_CLIENT_DATA,
+  GET_INSTRUMENT_DATA,
+  POST_TRANSACTION_DATA
+} from "../models/constant";
+import {Client, ClientStat, Custodian, CustodianStat, Instrument, OrderBook} from "../models/models";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -25,7 +35,28 @@ export class DataService {
   postTransaction(value: any): Observable<OrderBook> {
     return this.http.post<OrderBook>(POST_TRANSACTION_DATA, value);
   }
-  getAllOrderBook(){
+
+  getAllOrderBook() {
     return this.http.get<OrderBook[]>(GET_ALL_ORDER_BOOK);
+  }
+
+  getCustodianStats() {
+    return this.http.get<CustodianStat[]>(CUSTODIAN_WISE_DATA);
+  }
+
+  getClientStats() {
+    return this.http.get<ClientStat[]>(CLIENT_WISE_DATA);
+  }
+
+  getAllInstruments() {
+    return this.http.get<Instrument[]>(GET_ALL_INSTRUMENT);
+  }
+
+  getAllCustodians() {
+    return this.http.get<Custodian[]>(GET_ALL_CUSTODIANS);
+  }
+
+  getAllClients() {
+    return this.http.get<Client[]>(GET_ALL_CLIENTS);
   }
 }

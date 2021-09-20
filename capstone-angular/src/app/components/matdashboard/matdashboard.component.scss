@@ -8,6 +8,8 @@
   left: 15px;
   right: 15px;
   bottom: 15px;
+  height: auto;
+  overflow: auto;
 }
 
 .more-button {
@@ -18,4 +20,20 @@
 
 .dashboard-card-content {
   text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-around;
+  padding: 1em;
+  border: 1px solid;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 1px 4px 2px 0 slategrey;
+}
+
+.stat-header {
+  color: white;
+  background-color: #212121;
+  font-weight: bold;
 }
