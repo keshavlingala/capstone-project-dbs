@@ -67,14 +67,28 @@
     </mat-paginator>
   </mat-tab>
   <mat-tab label="Clients by Custodian">
-    <mat-form-field>
-      <mat-label>Select Custodian</mat-label>
-      <mat-select (ngModelChange)="fetchClients()" name="custodian" [(ngModel)]="selectedCustodian">
-        <mat-option [value]="cus.custodianId" matTooltipPosition="right" [matTooltip]="cus.custodianName"
-                    *ngFor="let cus of custodians | async">
-          {{cus.custodianId}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="d-flex justify-content-center">
+      <mat-form-field class="m-4">
+        <mat-label>Select Custodian</mat-label>
+        <mat-select (ngModelChange)="fetchClients()" name="custodian" [(ngModel)]="selectedCustodian">
+          <mat-option [value]="cus.custodianId" matTooltipPosition="right" [matTooltip]="cus.custodianName"
+                      *ngFor="let cus of custodians | async">
+            {{cus.custodianId}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="stat-item stat-header">
+        <span>Client ID</span>
+        <span>Client Name</span>
+        <span>Transaction Limit</span>
+      </div>
+      <div class="stat-item" *ngFor="let client of clients | async">
+        <span>{{client.clientId}}</span>
+        <span>{{client.clientName | truncate:[15]}}</span>
+        <span>{{client.transactionLimit | currency:'INR'}}</span>
+      </div>
+    </div>
   </mat-tab>
 </mat-tab-group>

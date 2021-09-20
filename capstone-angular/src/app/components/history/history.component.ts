@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Custodian, OrderBook} from "../../models/models";
+import {Client, Custodian, OrderBook} from "../../models/models";
 import {MatTableDataSource} from "@angular/material/table";
 import {DataService} from "../../services/data.service";
 import {ThemePalette} from "@angular/material/core";
@@ -17,6 +17,7 @@ export class HistoryComponent implements OnInit {
   custodians!: Observable<Custodian[]>;
   @ViewChild('paginator') paginator!: MatPaginator
   selectedCustodian: string = '';
+  clients!: Observable<Client[]>
 
   constructor(
     private data: DataService
@@ -49,6 +50,7 @@ export class HistoryComponent implements OnInit {
   }
 
   fetchClients() {
-
+    // this.clients = this.data.getClientsByCustodian(this.selectedCustodian)
+    this.clients = this.data.getAllClients();
   }
 }

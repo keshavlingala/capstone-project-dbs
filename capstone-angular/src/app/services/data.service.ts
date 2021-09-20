@@ -7,6 +7,7 @@ import {
   GET_ALL_CUSTODIANS,
   GET_ALL_INSTRUMENT,
   GET_ALL_ORDER_BOOK,
+  GET_CLIENT_BY_CUSTODIAN,
   GET_CLIENT_DATA,
   GET_INSTRUMENT_DATA,
   POST_TRANSACTION_DATA
@@ -68,5 +69,9 @@ export class DataService {
 
   getAllClients() {
     return this.http.get<Client[]>(GET_ALL_CLIENTS);
+  }
+
+  getClientsByCustodian(cid: string) {
+    return this.http.get<Client[]>(GET_CLIENT_BY_CUSTODIAN + cid)
   }
 }
