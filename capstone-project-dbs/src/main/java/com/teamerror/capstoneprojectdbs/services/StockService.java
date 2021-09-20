@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -62,6 +63,10 @@ public class StockService {
             newStock.setQuantity(0);
             return newStock;
         });
+    }
+
+    public List<Stocks> getAllStocks(){
+        return stocksRepository.findAll();
     }
 
 }
