@@ -30,3 +30,15 @@ export interface OrderBook {
   "limitOrder": boolean;
   "timeStamp": Date
 }
+
+export interface CustodianStat {
+  "custodianId": string;
+  "totalBuy": number;
+  "totalSell": number;
+}
+
+export interface ClientStat {
+  "clientId": string;
+  "totalBuy": number;
+  "totalSell": number;
+}
