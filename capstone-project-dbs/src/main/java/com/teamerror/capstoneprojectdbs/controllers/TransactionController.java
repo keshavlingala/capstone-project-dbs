@@ -4,6 +4,7 @@ import com.teamerror.capstoneprojectdbs.entities.OrderBook;
 import com.teamerror.capstoneprojectdbs.models.ClientWiseStats;
 import com.teamerror.capstoneprojectdbs.models.CustodianWiseStats;
 import com.teamerror.capstoneprojectdbs.models.OrderBookRequest;
+import com.teamerror.capstoneprojectdbs.repositories.OrderBookRepository;
 import com.teamerror.capstoneprojectdbs.services.DashboardService;
 import com.teamerror.capstoneprojectdbs.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,30 @@ public class TransactionController {
     @Autowired
     DashboardService dashboardService;
 
+    @Autowired
+    OrderBookRepository orderBookRepository;
+
+    @GetMapping("orderBook")
+    public List<OrderBook> getAllOrders() {
+        return orderBookRepository.findAll();
+    }
+
     @PostMapping("transaction")
-    public ResponseEntity<OrderBook> transaction(@RequestBody OrderBookRequest orderBookRequest){
+    public ResponseEntity<OrderBook> transaction(@RequestBody OrderBookRequest orderBookRequest) {
         OrderBook orderBook = transactionService.processTransaction(orderBookRequest);
         return new ResponseEntity<>(orderBook, HttpStatus.OK);
     }
 
     @GetMapping("custodianWiseStats")
-    public ResponseEntity<List<CustodianWiseStats>> getCustodianWiseStats(){
-        List<CustodianWiseStats> stats =  dashboardService.getCustodianWiseStats();
-        return new ResponseEntity<>(stats,HttpStatus.OK);
+    public ResponseEntity<List<CustodianWiseStats>> getCustodianWiseStats() {
+        List<CustodianWiseStats> stats = dashboardService.getCustodianWiseStats();
+        return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 
     @GetMapping("clientWiseStats")
-    public ResponseEntity<List<ClientWiseStats>> getClientWiseStats(){
+    public ResponseEntity<List<ClientWiseStats>> getClientWiseStats() {
         List<ClientWiseStats> stats = dashboardService.getClientWiseStats();
-        return new ResponseEntity<>(stats,HttpStatus.OK);
+        return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 
 }

@@ -5,6 +5,8 @@ import {priceValidator, quantityValidator} from "./custom.validators";
 import {MatDialog} from "@angular/material/dialog";
 import {ErrorComponent} from "../error/error.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Observable} from "rxjs";
+import {OrderBook} from "../../models/models";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class HomeComponent implements OnInit {
   orderForm: FormGroup
-
+  history!: Observable<OrderBook[]>
   @ViewChild('form') formElement!: NgForm
 
   constructor(
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
       quantity: ['', [Validators.required]],
       orderDirection: ['', Validators.required],
     })
+    this.history = this.data.getAllOrderBook();
   }
 
   ngOnInit() {

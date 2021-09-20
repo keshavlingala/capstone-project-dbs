@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {GET_CLIENT_DATA, GET_INSTRUMENT_DATA, POST_TRANSACTION_DATA} from "../models/constant";
+import {GET_ALL_ORDER_BOOK, GET_CLIENT_DATA, GET_INSTRUMENT_DATA, POST_TRANSACTION_DATA} from "../models/constant";
 import {Client, Instrument, OrderBook} from "../models/models";
 import {Observable} from "rxjs";
 
@@ -24,5 +24,8 @@ export class DataService {
 
   postTransaction(value: any): Observable<OrderBook> {
     return this.http.post<OrderBook>(POST_TRANSACTION_DATA, value);
+  }
+  getAllOrderBook(){
+    return this.http.get<OrderBook[]>(GET_ALL_ORDER_BOOK);
   }
 }

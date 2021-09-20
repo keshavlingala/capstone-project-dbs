@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-center m-4">
-  <div class="mat-elevation-z3 p-5">
+<div class="d-flex justify-content-evenly">
+  <div class="mat-elevation-z3 m-3 col-sm-6 p-5">
     <form #form="ngForm" (ngSubmit)="makeTransaction()" class="d-flex flex-column full-form"
           [formGroup]="orderForm">
       <div>
@@ -72,5 +72,16 @@
               mat-raised-button>Make Transaction
       </button>
     </form>
+  </div>
+  <div class="mat-elevation-z3 m-3 col-sm-6">
+    <mat-list>
+      <mat-list-item *ngFor="let item of history | async">
+        <span>{{item.client.clientName}}</span>
+        <span>{{item.instrument.instrumentName}}</span>
+        <span>{{item.price}}</span>
+        <span>{{item.orderDirection}}</span>
+        <span>{{item.initialQuantity}}</span>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>
