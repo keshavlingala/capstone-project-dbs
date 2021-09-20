@@ -84,23 +84,27 @@
         <span>{{item.initialQuantity}}</span>
       </mat-list-item>
     </mat-list> -->
-    <h1>Recent Orders</h1>
+    <div class="d-flex mb-2 align-items-center">
+      <h1 class="d-inline m-0">Recent Orders</h1>
+      <span class="flex-fill"></span>
+      <mat-icon matTooltipPosition="above" matTooltip="Refresh" class="pointer">refresh</mat-icon>
+    </div>
     <div class="history-card">
-      <div class="stat-item stat-header">
-        <span>Client</span>
-        <span>Instrument</span>
-        <span>Price</span>
-        <span>orderDirection</span>
-        <span>initialQuantity</span>
-      </div>
       <div class="d-flex flex-column">
+        <div class="stat-item stat-header">
+          <span>Client</span>
+          <span>Instrument</span>
+          <span>Price</span>
+          <span>Order Direction</span>
+          <span>Order Status</span>
+        </div>
         <div class="stat-item" *ngFor="let item of history | async">
-          <span [matTooltip]="item.client.clientName">{{item.client.clientName | truncate:[10]}}</span>
+          <span [matTooltip]="item.client.clientName">{{item.client.clientId | truncate:[10]}}</span>
           <span
-            [matTooltip]="item.instrument.instrumentName">{{item.instrument.instrumentName | truncate:[10]}}</span>
+            [matTooltip]="item.instrument.instrumentName">{{item.instrument.instrumentId | truncate:[10]}}</span>
           <span>{{item.price}}</span>
           <span>{{item.orderDirection}}</span>
-          <span>{{item.initialQuantity}}</span>
+          <span>{{item.orderStatus}}</span>
         </div>
       </div>
     </div>

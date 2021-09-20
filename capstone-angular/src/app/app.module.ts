@@ -39,6 +39,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { TruncatePipe } from './misc/truncate.pipe';
 import { HistoryComponent } from './components/history/history.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     MatPaginatorModule,
     MatSortModule,
     MatTabsModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

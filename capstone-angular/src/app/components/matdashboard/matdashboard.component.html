@@ -128,7 +128,7 @@
               <span [matTooltip]="cli.clientName">{{cli.clientName | truncate:[10]}}</span>
               <span>{{cli.custodian.custodianId}}</span>
               <span [matTooltip]="cli.custodian.custodianName">{{cli.custodian.custodianName | truncate:[10]}}</span>
-              <span>{{cli.transactionLimit}}</span>
+              <span>{{cli.transactionLimit |currency:'INR' }}</span>
             </div>
           </div>
         </mat-card-content>

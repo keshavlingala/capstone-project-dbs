@@ -13,6 +13,7 @@ import {
 } from "../models/constant";
 import {Client, ClientStat, Custodian, CustodianStat, Instrument, OrderBook} from "../models/models";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,15 @@ export class DataService {
 
   getAllOrderBook() {
     return this.http.get<OrderBook[]>(GET_ALL_ORDER_BOOK);
+  }
+
+  getRecentHistory() {
+    return this.http.get<OrderBook[]>(GET_ALL_ORDER_BOOK).pipe(
+      map(orderbook => {
+        console.log(orderbook.map(o => new Date(o.timeStamp).getTime()))
+        return orderbook.sort((a, b) => new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()).slice(0, 5)
+      })
+    )
   }
 
   getCustodianStats() {
