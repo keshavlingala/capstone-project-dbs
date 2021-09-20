@@ -63,9 +63,18 @@
       <tr mat-header-row *matHeaderRowDef="orderBookColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: orderBookColumns;"></tr>
     </table>
-
+    <mat-paginator #paginator color="primary" pageSize="10" [pageSizeOptions]="[5,10,15,20]">
+    </mat-paginator>
   </mat-tab>
-  <mat-tab label="Stocks"></mat-tab>
-  <mat-tab label="All Clients"></mat-tab>
-  <mat-tab label="Clients by Custodian"></mat-tab>
+  <mat-tab label="Clients by Custodian">
+    <mat-form-field>
+      <mat-label>Select Custodian</mat-label>
+      <mat-select (ngModelChange)="fetchClients()" name="custodian" [(ngModel)]="selectedCustodian">
+        <mat-option [value]="cus.custodianId" matTooltipPosition="right" [matTooltip]="cus.custodianName"
+                    *ngFor="let cus of custodians | async">
+          {{cus.custodianId}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-tab>
 </mat-tab-group>

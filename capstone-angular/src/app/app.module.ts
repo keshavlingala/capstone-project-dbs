@@ -11,7 +11,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
@@ -84,6 +84,7 @@ import {MatChipsModule} from "@angular/material/chips";
     MatSortModule,
     MatTabsModule,
     MatChipsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

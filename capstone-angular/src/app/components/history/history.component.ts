@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {OrderBook} from "../../models/models";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Custodian, OrderBook} from "../../models/models";
 import {MatTableDataSource} from "@angular/material/table";
 import {DataService} from "../../services/data.service";
 import {ThemePalette} from "@angular/material/core";
+import {MatPaginator} from "@angular/material/paginator";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-history',
@@ -10,15 +12,20 @@ import {ThemePalette} from "@angular/material/core";
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
-  orderBookColumns = ['clientId', 'custodian', 'instrumentId', 'price', 'orderStatus', 'timestamp', 'orderDirection','icon']
+  orderBookColumns = ['clientId', 'custodian', 'instrumentId', 'price', 'orderStatus', 'timestamp', 'orderDirection', 'icon']
   orderBook!: MatTableDataSource<OrderBook>
+  custodians!: Observable<Custodian[]>;
+  @ViewChild('paginator') paginator!: MatPaginator
+  selectedCustodian: string = '';
 
   constructor(
     private data: DataService
   ) {
     this.data.getAllOrderBook().subscribe(orderBook => {
       this.orderBook = new MatTableDataSource<OrderBook>(orderBook);
-    })
+      this.orderBook.paginator = this.paginator;
+    });
+    this.custodians = this.data.getAllCustodians();
   }
 
   ngOnInit(): void {
@@ -35,9 +42,13 @@ export class HistoryComponent implements OnInit {
     return 'warn'
   }
 
-  getIcon(element:any) {
-    if(this.asOrder(element).orderStatus=='COMPLETED')return 'done'
-    if(this.asOrder(element).orderStatus=='PROCESSING')return 'pending_actions'
+  getIcon(element: any) {
+    if (this.asOrder(element).orderStatus == 'COMPLETED') return 'done'
+    if (this.asOrder(element).orderStatus == 'PROCESSING') return 'pending_actions'
     return 'cancel'
+  }
+
+  fetchClients() {
+
   }
 }
