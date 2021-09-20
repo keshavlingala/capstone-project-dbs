@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
       quantity: ['', [Validators.required]],
       orderDirection: ['', Validators.required],
     })
-    this.history = this.data.getAllOrderBook();
+    this.history = this.data.getRecentHistory();
   }
 
   ngOnInit() {
@@ -55,6 +55,8 @@ export class HomeComponent implements OnInit {
       this.snack.open('Order Request Successful', 'Dismiss', {
         duration: 1500
       })
+      this.history = this.data.getRecentHistory();
+
     }, error => {
       this.handleError(error);
       this.snack.open('Order Request Failed', 'Try Again', {
@@ -64,6 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   updateClient(event: any) {
+    if (!this.orderForm.get('clientId')?.value) return
     console.log(event)
     this.data.getClientData(this.orderForm.get('clientId')?.value).subscribe(client => {
       this.orderForm.get('clientName')?.setValue(client.clientName);
@@ -78,6 +81,7 @@ export class HomeComponent implements OnInit {
   }
 
   updateInstrument() {
+    if (!this.orderForm.get('instrumentId')?.value) return
     this.data.getInstrument(this.orderForm.get('instrumentId')?.value).subscribe(instrument => {
       this.orderForm.get('instrumentName')?.setValue(instrument.instrumentName);
       this.orderForm.get('faceValue')?.setValue(instrument.faceValue);
