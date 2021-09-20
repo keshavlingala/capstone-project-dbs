@@ -1,5 +1,6 @@
-<div class="d-flex justify-content-evenly">
-  <div class="mat-elevation-z3 m-3 col-sm-6 p-5">
+<div class="d-flex justify-content-evenly flex-wrap">
+  <div class="mat-elevation-z3 m-3  p-5 ">
+    <h1>Order Placing Screen</h1>
     <form #form="ngForm" (ngSubmit)="makeTransaction()" class="d-flex flex-column full-form"
           [formGroup]="orderForm">
       <div>
@@ -73,7 +74,7 @@
       </button>
     </form>
   </div>
-  <div class="mat-elevation-z3 m-3 col-sm-6">
+  <div class="mat-elevation-z3 m-3 p-5">
     <!-- <mat-list>
       <mat-list-item *ngFor="let item of history | async">
         <span>{{item.client.clientName}}</span>
@@ -83,26 +84,25 @@
         <span>{{item.initialQuantity}}</span>
       </mat-list-item>
     </mat-list> -->
-    <mat-card>
-    <mat-card-content class="history-card">
-      <div mat-subheader>Client History</div>
-<div class="stat-item stat-header">
-  <span>Client</span>
-  <span>Instrument</span>
-  <span>Price</span>
-  <span>orderDirection</span>
-  <span>initialQuantity</span>
-</div>
-<div class="d-flex flex-column">
-  <div class="stat-item" *ngFor="let item of history | async">
-    <span>{{item.client.clientName}}</span>
-        <span>{{item.instrument.instrumentName}}</span>
-        <span>{{item.price}}</span>
-        <span>{{item.orderDirection}}</span>
-        <span>{{item.initialQuantity}}</span>
+    <h1>Recent Orders</h1>
+    <div class="history-card">
+      <div class="stat-item stat-header">
+        <span>Client</span>
+        <span>Instrument</span>
+        <span>Price</span>
+        <span>orderDirection</span>
+        <span>initialQuantity</span>
+      </div>
+      <div class="d-flex flex-column">
+        <div class="stat-item" *ngFor="let item of history | async">
+          <span [matTooltip]="item.client.clientName">{{item.client.clientName | truncate:[10]}}</span>
+          <span
+            [matTooltip]="item.instrument.instrumentName">{{item.instrument.instrumentName | truncate:[10]}}</span>
+          <span>{{item.price}}</span>
+          <span>{{item.orderDirection}}</span>
+          <span>{{item.initialQuantity}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-</mat-card-content>
-</mat-card>
-  </div>
-
