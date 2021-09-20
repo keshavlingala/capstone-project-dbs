@@ -6,10 +6,9 @@ import com.teamerror.capstoneprojectdbs.services.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -20,6 +19,11 @@ public class ClientsController {
     public ResponseEntity<Client> getClient(@PathVariable("id") String id) {
         Client client = clientService.findByClientId(id);
         return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "clients")
+    public ResponseEntity<List<Client>> getAllClients(){
+        return new ResponseEntity<>(clientService.findAll(),HttpStatus.OK);
     }
 
     @GetMapping(value = "/test")

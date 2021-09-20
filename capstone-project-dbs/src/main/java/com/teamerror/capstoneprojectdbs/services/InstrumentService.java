@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class InstrumentService {
@@ -14,5 +16,9 @@ public class InstrumentService {
 
     public Instrument findByInstrumentId(String instrumentId) {
         return instrumentRepository.findById(instrumentId).get();
+    }
+
+    public List<Instrument> findAll(){
+        return instrumentRepository.findAll();
     }
 }
