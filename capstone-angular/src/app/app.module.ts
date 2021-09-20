@@ -37,6 +37,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { TruncatePipe } from './misc/truncate.pipe';
+import { HistoryComponent } from './components/history/history.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { TruncatePipe } from './misc/truncate.pipe';
     NavigationComponent,
     MatdashboardComponent,
     TableComponent,
-    TruncatePipe
+    TruncatePipe,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,7 @@ import { TruncatePipe } from './misc/truncate.pipe';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
+  <h1 class="mat-h1">Settlement Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile [colspan]="2" [rowspan]="1">
       <mat-card class="dashboard-card">
@@ -92,9 +92,9 @@
             </div>
             <div class="stat-item" *ngFor="let stat of clientStats | async">
               <span>{{stat.clientId}}</span>
-              <span>{{stat.totalBuy}}</span>
-              <span>{{stat.totalSell}}</span>
-              <span>{{stat.totalSell - stat.totalBuy}}</span>
+              <span>{{stat.totalBuy  | currency:'INR'}}</span>
+              <span>{{stat.totalSell  | currency:'INR'}}</span>
+              <span>{{stat.totalSell - stat.totalBuy  | currency:'INR'}}</span>
             </div>
           </div>
         </mat-card-content>
