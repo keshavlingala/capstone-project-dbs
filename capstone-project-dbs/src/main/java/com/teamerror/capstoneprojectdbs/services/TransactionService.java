@@ -226,7 +226,7 @@ public class TransactionService {
         Transfers the stocks present in orderReq from the seller to buyer.
     */
     @Transactional
-    private void exchangeStocks(Client buyer, Client seller, OrderBook buyerOrderBookInstance,OrderBook sellerOrderBookInstance,boolean considerBuyersOrderReq) {
+    void exchangeStocks(Client buyer, Client seller, OrderBook buyerOrderBookInstance,OrderBook sellerOrderBookInstance,boolean considerBuyersOrderReq) {
         OrderBook orderReq;
         if(considerBuyersOrderReq){ //consider the quantity and price present in buyerOrderBookInstance while exchanging the stock
             orderReq = buyerOrderBookInstance;
